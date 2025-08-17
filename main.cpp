@@ -16,15 +16,17 @@ std::vector<Yizi> yizis;
 #include "zhenrong.h"
 #include "search.h"
 
+void print(__uint128_t x)
+{
+	for(int i=0;i<128;i++)
+	{
+		putchar('0'+(x>>i&1));
+	}
+	puts("");
+}
 
 int main(int argc,char**argv) try
 {
-	u4 x=1|1<<12|1<<18|u4(1)<<100;
-	
-	for(int k:Bits(x))
-		printf("%d ",k);
-	puts("");
-
 	read_config("./query_config.txt");
 	print_config(File("out.txt","w"));
 	search_zhenrong(query_config.n,query_config.wasted_limit,"zhenrong.txt");

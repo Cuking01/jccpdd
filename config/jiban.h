@@ -6,7 +6,7 @@ void read_config_jiban()
 
 	int n,cnt=0;
 	fscanf(config,"%d",&n);
-	printf("%d\n",n);
+	
 	while(n--)
 	{
 		char tmp[100];

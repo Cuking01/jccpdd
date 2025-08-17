@@ -8,9 +8,30 @@ struct Bits
 	struct Iterator
 	{
 		T x;
-		int operator*()
+
+		static int ctz(T x)
 		{
-			return __builtin_ctz(x);
+			if constexpr(sizeof(T)==16)
+			{
+				u3 l=x&u3(-1);
+				if(l)return __builtin_ctzll(l);
+
+				return 64+__builtin_ctzll(x>>64);
+				
+			}
+			else if constexpr(sizeof(T)==8)
+			{
+				return __builtin_ctzll(x);
+			}
+			else
+			{
+				return __builtin_ctz(x);
+			}
+		}
+
+		int operator*() const
+		{
+			return ctz(x);
 		}
 		bool operator!=(const Iterator&b) const
 		{
