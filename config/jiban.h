@@ -6,7 +6,7 @@ void read_config_jiban()
 
 	int n,cnt=0;
 	fscanf(config,"%d",&n);
-	
+
 	while(n--)
 	{
 		char tmp[100];
@@ -18,6 +18,13 @@ void read_config_jiban()
 		jiban_s2i[name]=cnt;
 		jiban_i2s[cnt]=name;
 		jiban.id=cnt++;
+
+		if(name=="大宗师")
+		{
+			pruning_大宗师=true;
+			大宗师_id=cnt-1;
+		}
+
 
 		int n_sp,n_levels;
 

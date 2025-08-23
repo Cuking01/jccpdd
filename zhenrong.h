@@ -16,31 +16,42 @@ struct ZhenRong
 			jiban_cnt[i]++;
 	}
 
+	int jiban_num(int id) const
+	{
+		return std::min(jiban_cnt[id]+纹章[id],n)+额外羁绊[id];
+	}
+
 	int wasted() const
 	{
 		int sum=0;
 		for(int i=0;i<jibans.size();i++)
-			sum+=jibans[i].wasted(jiban_cnt[i]);
+			sum+=jibans[i].wasted(jiban_num(i));
 		return sum;
 	}
 
-	static inline int print_cnt;
+	int wasted_pruning() const
+	{
+		int wasted_num=wasted();
+		if(pruning_大宗师)
+			wasted_num-=jiban_num(大宗师_id)>1;
+		return wasted_num;
+	}
 
 	ZhenRong()
 	{
 		yizis=0;
 		memset(jiban_cnt,0,sizeof jiban_cnt);
 	}
-	void print(File&out) const
+	void print(int id,File&out) const
 	{
-		fprintf(out,"阵容%d:\n弈子: ",++print_cnt);
+		fprintf(out,"阵容%d:\n弈子: ",id);
 		for(int i:Bits(yizis))
 			fprintf(out,"%s ",::yizis[i].name().c_str());
 		fputs("\n",out);
 
 		for(int i=0;i<::jibans.size();i++)
-			if(jiban_cnt[i])
-				fprintf(out,"%d%s ",jiban_cnt[i],jibans[i].name().c_str());
+			if(jiban_num(i))
+				fprintf(out,"%d%s ",jiban_num(i),jibans[i].name().c_str());
 		fputs("\n\n",out);
 	}
 

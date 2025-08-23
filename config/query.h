@@ -11,6 +11,16 @@ struct Query_Config
 	std::string yizi_config_file="";
 	std::string jiban_config_file="";
 
+	std::vector<std::string> 必选弈子;
+	std::map<std::string,int> 弈子加权;
+	std::vector<std::string> 不选弈子;
+	std::map<std::string,int> 纹章;
+	std::map<std::string,int> 额外羁绊;
+
+	void add_海克斯(std::string name)
+	{
+		
+	}
 
 	void read(std::string_view query_path)
 	{
@@ -40,6 +50,32 @@ struct Query_Config
 			else if(name=="输出文件")
 			{
 				output_file=reader.read_string();
+			}
+			else if(name=="必选弈子")
+			{
+				必选弈子.push_back(reader.read_string());
+			}
+			else if(name=="不选弈子")
+			{
+				不选弈子.push_back(reader.read_string());
+			}
+			else if(name=="弈子加权")
+			{
+				auto name=reader.read_string();
+				int w=reader.read_int();
+				弈子加权.emplace(name,w);
+			}
+			else if(name=="纹章")
+			{
+				纹章[reader.read_string()]++;
+			}
+			else if(name=="额外羁绊")
+			{
+				额外羁绊[reader.read_string()]++;
+			}
+			else if(name=="海克斯")
+			{
+				add_海克斯(reader.read_string());
 			}
 			else
 			{

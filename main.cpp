@@ -5,6 +5,9 @@
 std::map<std::string,int> jiban_s2i,yizi_s2i;
 std::map<int,std::string> jiban_i2s,yizi_i2s;
 
+bool pruning_大宗师;
+int 大宗师_id;
+
 #include "jiban.h"
 #include "yizi.h"
 
