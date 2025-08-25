@@ -4,14 +4,22 @@ void read_config_yizi()
 {
 	File config(query_config.yizi_config_file,"r");
 
+	Config_Reader reader(config);
+
 	int n,cnt=0;
-	fscanf(config,"%d",&n);
+	n=reader.read_int();
+
+	auto 设置定位=[](std::string 定位) -> int
+	{
+		if(定位=="坦")return 坦;
+		if(定位=="物")return 物;
+		if(定位=="法")return 法;
+		cu_error("错误的定位： {}",定位);
+	};
 
 	while(n--)
 	{
-		char tmp[100];
-		fscanf(config,"%s",tmp);
-		std::string name=tmp;
+		std::string name=reader.read_string();
 		Yizi yizi;
 		cu_assert(!yizi_s2i.contains(name),"yizi conflict");
 
@@ -19,29 +27,29 @@ void read_config_yizi()
 		yizi_i2s[cnt]=name;
 		yizi.id=cnt++;
 
-		fscanf(config,"%d",&yizi.level);
+		yizi.level=reader.read_int();
+		yizi.定位=设置定位(reader.read_string());
+		yizi.战力权重=reader.read_int();
+		yizi.团队权重=reader.read_int();
 
 		int n_sp,n_jiban;
 
-		fscanf(config,"%d",&n_jiban);
+		n_jiban=reader.read_int();
 
 		for(int i=0;i<n_jiban;i++)
 		{
-			fscanf(config,"%s",tmp);
+			std::string 羁绊=reader.read_string();
 
-			cu_assert(jiban_s2i.contains(tmp),"{} jiban {} undefined",name,tmp);
+			cu_assert(jiban_s2i.contains(羁绊),"{} 羁绊 {} 未定义",name,羁绊);
 
-			int jiban=jiban_s2i[tmp];
+			int jiban=jiban_s2i[羁绊];
 			yizi.jibans|=u3(1)<<jiban;
 		}
 
-		fscanf(config,"%d",&n_sp);
+		n_sp=reader.read_int();
 
 		for(int i=0;i<n_sp;i++)
-		{
-			fscanf(config,"%s",tmp);
-			yizi.add_sp(tmp);
-		}
+			yizi.add_sp(reader.read_string());
 
 		yizis.push_back(yizi);
 	}
