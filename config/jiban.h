@@ -21,8 +21,8 @@ void read_config_jiban()
 
 		if(name=="大宗师")
 		{
-			pruning_大宗师=true;
-			大宗师_id=cnt-1;
+			pruning_s15大宗师=true;
+			s15大宗师_id=cnt-1;
 		}
 
 
@@ -44,6 +44,6 @@ void read_config_jiban()
 			fscanf(config,"%s",tmp);
 			jiban.add_sp(tmp);
 		}
-		jibans.push_back(jiban);
+		羁绊配置.push_back(jiban);
 	}
 }

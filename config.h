@@ -27,6 +27,7 @@ struct Config_Reader
 };
 
 int 纹章[100];
+std::vector<int> 纹章表;
 int 额外羁绊[100];
 u4 必选弈子;
 u4 不选弈子;
@@ -43,6 +44,8 @@ void after_read()
 		if(!jiban_s2i.contains(羁绊))
 			cu_error("不存在的羁绊{}",羁绊);
 		纹章[jiban_s2i[羁绊]]+=num;
+		for(int i=0;i<num;i++)
+			纹章表.push_back(jiban_s2i[羁绊]);
 	}
 
 	for(const auto&[羁绊,num]:query_config.额外羁绊)
@@ -92,7 +95,7 @@ void read_config(std::string_view query_path)
 void print_config(File& file)
 {
 	fputs("-------------jiban-------------\n\n",file);
-	for(auto& jiban:jibans)
+	for(auto& jiban:羁绊配置)
 	{
 		fprintf(file,"name: %s\n",jiban.name().c_str());
 		fprintf(file,"levels: ");
@@ -107,13 +110,13 @@ void print_config(File& file)
 	}
 
 	fputs("-------------yizi-------------\n\n",file);
-	for(auto& yizi:yizis)
+	for(auto& yizi:弈子配置)
 	{
 		fprintf(file,"name: %s\n",yizi.name().c_str());
-		fprintf(file,"jibans: ");
+		fprintf(file,"羁绊配置: ");
 		for(int i=0;i<60;i++)
-			if(yizi.jibans>>i&1)
-				fprintf(file,"%s ",jibans[i].name().c_str());
+			if(yizi.羁绊>>i&1)
+				fprintf(file,"%s ",羁绊配置[i].name().c_str());
 		fprintf(file,"\n");
 
 		fputs("",file);

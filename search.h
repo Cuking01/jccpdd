@@ -21,7 +21,7 @@ struct Dfs
 			return;	
 		}
 
-		if(dep==yizis.size())return;
+		if(dep==弈子配置.size())return;
 
 		dfs(zhenrong,dep+1,m);
 

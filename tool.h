@@ -45,6 +45,23 @@ struct Bits
 	};
 	T x;
 	Bits(T x):x(x) {}
+
+	int size() const
+	{
+		if constexpr(sizeof(T)==16)
+		{
+			return __builtin_popcountll(x>>64)+__builtin_popcountll(x);
+			
+		}
+		else if constexpr(sizeof(T)==8)
+		{
+			return __builtin_popcountll(x);
+		}
+		else
+		{
+			return __builtin_popcount(x);
+		}
+	}
 	Iterator begin() const
 	{
 		return {x};

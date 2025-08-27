@@ -5,19 +5,20 @@
 std::map<std::string,int> jiban_s2i,yizi_s2i;
 std::map<int,std::string> jiban_i2s,yizi_i2s;
 
-bool pruning_大宗师;
-int 大宗师_id;
+bool pruning_s15大宗师;
+int s15大宗师_id;
 
 #include "jiban.h"
 #include "yizi.h"
 
-std::vector<JiBan> jibans;
-std::vector<Yizi> yizis;
+std::vector<JiBan> 羁绊配置;
+std::vector<Yizi> 弈子配置;
 
 
 #include "config.h"
 #include "zhenrong.h"
 #include "search.h"
+#include "score.h"
 
 void print(__uint128_t x)
 {

@@ -43,7 +43,7 @@ void read_config_yizi()
 			cu_assert(jiban_s2i.contains(羁绊),"{} 羁绊 {} 未定义",name,羁绊);
 
 			int jiban=jiban_s2i[羁绊];
-			yizi.jibans|=u3(1)<<jiban;
+			yizi.羁绊|=u3(1)<<jiban;
 		}
 
 		n_sp=reader.read_int();
@@ -51,7 +51,7 @@ void read_config_yizi()
 		for(int i=0;i<n_sp;i++)
 			yizi.add_sp(reader.read_string());
 
-		yizis.push_back(yizi);
+		弈子配置.push_back(yizi);
 	}
 }
 

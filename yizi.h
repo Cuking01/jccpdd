@@ -8,7 +8,7 @@ struct Yizi
 {
 	int id;
 	int level;
-	u3 jibans=0;
+	u3 羁绊=0;
 
 	int 定位;
 	int 战力权重;
