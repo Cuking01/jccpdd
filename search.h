@@ -5,18 +5,18 @@ struct Dfs
 {
 
 	std::vector<ZhenRong> result;
-	int wasted_limit;
+	int 最大羁绊浪费;
 	u4 yizi_mask;
 
 
 
 	void dfs(ZhenRong&zhenrong,int dep,int m)
 	{
-		if(zhenrong.wasted_pruning()-3*(n-m)>wasted_limit)return;
+		if(zhenrong.wasted_pruning()-3*(人口-m)>最大羁绊浪费)return;
 
-		if(m==n)
+		if(m==人口)
 		{
-			if(zhenrong.filter(n)&&zhenrong.wasted()<=wasted_limit)
+			if(zhenrong.filter(人口)&&zhenrong.wasted()<=最大羁绊浪费)
 				result.push_back(zhenrong);
 			return;	
 		}
@@ -36,10 +36,10 @@ struct Dfs
 
 
 
-void search_zhenrong(int n,int wasted_limit,std::string_view path)
+void search_zhenrong(int n,int 最大羁绊浪费,std::string_view path)
 {
 	Dfs dfs;
-	dfs.wasted_limit=wasted_limit;
+	dfs.最大羁绊浪费=最大羁绊浪费;
 	dfs.yizi_mask=必选弈子|不选弈子;
 
 	ZhenRong zhenrong;

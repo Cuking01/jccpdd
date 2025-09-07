@@ -3,8 +3,11 @@
 struct Query_Config
 {
 	std::string s="";    //赛季
-	int n=-1;            //阵容人口数
-	int wasted_limit=-1; //最多允许浪费的羁绊个数
+	int 赛季;
+	int 等级=-1;          
+	int 额外人口数=0;
+	int 人口;
+	int 最大羁绊浪费=-1; //最多允许浪费的羁绊个数
 
 	std::string data_path="./data"; //配置数据路径
 	std::string output_file="./out.txt"; //搜索结果路径
@@ -34,14 +37,19 @@ struct Query_Config
 			if(name=="赛季")
 			{
 				s=reader.read_string();
+				cu_assert(s.size()>=3&&s[0]=='s',"赛季格式错误");
+				赛季=0;
+				for(int i=1;is(s[i]).in('0','9');i++)
+					赛季=赛季*10+s[i]-'0';
+				cu_assert(is(赛季).in(1,15),"赛季错误");
 			}
-			else if(name=="人口")
+			else if(name=="等级")
 			{
-				n=reader.read_int();
+				等级=reader.read_int();
 			}
 			else if(name=="最大羁绊浪费")
 			{
-				wasted_limit=reader.read_int();
+				最大羁绊浪费=reader.read_int();
 			}
 			else if(name=="数据路径")
 			{
@@ -77,6 +85,10 @@ struct Query_Config
 			{
 				add_海克斯(reader.read_string());
 			}
+			else if(name=="冠冕")
+			{
+				额外人口数++;
+			}
 			else
 			{
 				cu_error("未知配置项：{}",name);
@@ -90,8 +102,8 @@ struct Query_Config
 	void check_required()
 	{
 		cu_assert(s!="","\"赛季\" 必须配置");
-		cu_assert(n!=-1,"\"人口\" 必须配置");
-		cu_assert(wasted_limit!=-1,"\"最大羁绊浪费\" 必须配置");
+		cu_assert(等级!=-1,"\"等级\" 必须配置");
+		cu_assert(最大羁绊浪费!=-1,"\"最大羁绊浪费\" 必须配置");
 	}
 
 	//设置一些依赖别的选项的默认值
@@ -101,14 +113,15 @@ struct Query_Config
 			jiban_config_file=data_path+"/"+s+"_jiban.txt";
 		if(yizi_config_file=="")
 			yizi_config_file=data_path+"/"+s+"_yizi.txt";
+		人口=等级+额外人口数;
 	}
 };
 
-Query_Config query_config;
+Query_Config 查询参数;
 
 void read_config_query(std::string_view path)
 {
-	query_config.read(path);
-	query_config.check_required();
-	query_config.set_default_config();
+	查询参数.read(path);
+	查询参数.check_required();
+	查询参数.set_default_config();
 }

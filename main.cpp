@@ -33,7 +33,7 @@ int main(int argc,char**argv) try
 {
 	read_config("./query_config.txt");
 	print_config(File("out.txt","w"));
-	search_zhenrong(query_config.n,query_config.wasted_limit,"zhenrong.txt");
+	search_zhenrong(查询参数.等级,查询参数.最大羁绊浪费,"zhenrong.txt");
 }
 catch(std::exception&e)
 {

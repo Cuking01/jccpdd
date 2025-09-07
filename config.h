@@ -31,7 +31,8 @@ std::vector<int> 纹章表;
 int 额外羁绊[100];
 u4 必选弈子;
 u4 不选弈子;
-int n;
+int 等级;
+int 人口;
 
 #include "config/query.h"
 #include "config/jiban.h"
@@ -39,7 +40,7 @@ int n;
 
 void after_read()
 {
-	for(const auto&[羁绊,num]:query_config.纹章)
+	for(const auto&[羁绊,num]:查询参数.纹章)
 	{
 		if(!jiban_s2i.contains(羁绊))
 			cu_error("不存在的羁绊{}",羁绊);
@@ -48,23 +49,24 @@ void after_read()
 			纹章表.push_back(jiban_s2i[羁绊]);
 	}
 
-	for(const auto&[羁绊,num]:query_config.额外羁绊)
+	for(const auto&[羁绊,num]:查询参数.额外羁绊)
 	{
 		if(!jiban_s2i.contains(羁绊))
 			cu_error("不存在的羁绊{}",羁绊);
 		额外羁绊[jiban_s2i[羁绊]]+=num;
 	}
 
-	n=query_config.n;
+	等级=查询参数.等级;
+	人口=查询参数.人口;
 
-	for(auto 弈子:query_config.必选弈子)
+	for(auto 弈子:查询参数.必选弈子)
 	{
 		if(!yizi_s2i.contains(弈子))
 			cu_error("不存在的弈子{}",弈子);
 		必选弈子|=u4(1)<<yizi_s2i[弈子];
 	}
 
-	for(auto 弈子:query_config.不选弈子)
+	for(auto 弈子:查询参数.不选弈子)
 	{
 		if(!yizi_s2i.contains(弈子))
 			cu_error("不存在的弈子{}",弈子);

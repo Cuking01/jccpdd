@@ -18,7 +18,7 @@ struct ZhenRong
 
 	int jiban_num(int id) const
 	{
-		return std::min(jiban_cnt[id]+纹章[id],n)+额外羁绊[id];
+		return std::min(jiban_cnt[id]+纹章[id],人口)+额外羁绊[id];
 	}
 
 	int wasted() const
@@ -55,11 +55,11 @@ struct ZhenRong
 		fputs("\n\n",out);
 	}
 
-	int num_of_level(int level) const
+	int num_of_level(int 阶位) const
 	{
 		int cnt=0;
 		for(int i:Bits(弈子))
-			cnt+=::弈子配置[i].level==level;
+			cnt+=::弈子配置[i].阶位==阶位;
 		return cnt;
 	}
 

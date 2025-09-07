@@ -2,7 +2,7 @@
 
 void read_config_yizi()
 {
-	File config(query_config.yizi_config_file,"r");
+	File config(查询参数.yizi_config_file,"r");
 
 	Config_Reader reader(config);
 
@@ -27,7 +27,7 @@ void read_config_yizi()
 		yizi_i2s[cnt]=name;
 		yizi.id=cnt++;
 
-		yizi.level=reader.read_int();
+		yizi.阶位=reader.read_int();
 		yizi.定位=设置定位(reader.read_string());
 		yizi.战力权重=reader.read_int();
 		yizi.团队权重=reader.read_int();

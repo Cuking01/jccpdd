@@ -7,7 +7,7 @@ static constexpr int 法=2;
 struct Yizi
 {
 	int id;
-	int level;
+	int 阶位;
 	u3 羁绊=0;
 
 	int 定位;

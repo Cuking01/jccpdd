@@ -2,7 +2,7 @@
 
 void read_config_jiban()
 {
-	File config(query_config.jiban_config_file,"r");
+	File config(查询参数.jiban_config_file,"r");
 
 	int n,cnt=0;
 	fscanf(config,"%d",&n);
